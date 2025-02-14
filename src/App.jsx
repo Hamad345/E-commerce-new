@@ -14,6 +14,7 @@ import './App.css'
 import { Routes,Route } from 'react-router'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import Footer from './components/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -34,6 +35,7 @@ function App() {
            <Route path='/orders'  element={<Orders/>} />
 
   </Routes>
+  <Footer/>
 
  
 
