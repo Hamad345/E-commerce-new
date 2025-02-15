@@ -15,6 +15,7 @@ import { Routes,Route } from 'react-router'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Footer from './components/Footer'
+import SearchBar from './components/SearchBar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,6 +24,7 @@ function App() {
     <>
 <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] '>
   <Navbar/>
+  <SearchBar/> 
   <Routes>
     <Route path='/'  element={<Home/>} />
      <Route path='/collection'  element={<Collection/>} />
