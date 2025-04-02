@@ -10,6 +10,7 @@ const Collection = () => {
   const [filterProducts,setFilterProducts]=useState([])
   const [category,setCategory]=useState([])
   const [subCategory,setSubCategory]=useState([])
+const [priceRange, setPriceRange] = useState({ min: 200, max: 300 }); // Adjust max as needed
   const [sortType,setSortType]=useState("relavant")
   const toggleCategory = (e)=>{
     if(category.includes(e.target.value)){
@@ -25,6 +26,13 @@ const Collection = () => {
       setSubCategory(prev=>[...prev,e.target.value])
     }
   }
+    const handlePriceRangeChange = (e) => {
+  const { name, value } = e.target;
+  setPriceRange(prev => ({
+    ...prev,
+    [name]: Number(value)
+  }));
+};
 const applyFilter =()=>{
  
   let productsCopy=products.slice();
@@ -39,6 +47,10 @@ const applyFilter =()=>{
     productsCopy=productsCopy.filter(item=>subCategory.includes(item.subCategory))
    
   }
+   productsCopy = productsCopy.filter(item => 
+    item.price >= priceRange.min && item.price <= priceRange.max
+  );
+  
   setFilterProducts(productsCopy)
 }
 const sortProduct =()=>{
@@ -57,7 +69,7 @@ const sortProduct =()=>{
 }
   useEffect(()=>{
    applyFilter()
-  },[category,subCategory,search,showSearch])
+  },[category,subCategory,search,showSearch,priceRange])
     useEffect(()=>{
    sortProduct()
   },[sortType])
@@ -104,6 +116,18 @@ const sortProduct =()=>{
 
               <input type='checkbox' className='w-3' value={"Winterwear"} onChange={toggleSubCategory} /> Winterwear
             </p>
+     
+          </div>
+        </div>
+         <div className={`border border-gray-300 pl-5 py-3 my-5 mt-6 ${showFilter ?"":"hidden "}`}>
+          <p className='mb-3 text-sm font-medium'>Range</p>
+          <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
+            <p className='flex gap-2'>
+
+              <input type='range' className='w-50'      min="0"
+      max="1000"    value={priceRange}  onChange={handlePriceRangeChange}/> 
+            </p>
+          
      
           </div>
         </div>
